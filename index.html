@@ -10,19 +10,27 @@
     body { font-family: 'Inter', sans-serif; background:#05070f; color:#e5e7eb; overflow-x:hidden; }
     #three-bg { position:fixed; inset:0; width:100%; height:100%; z-index:-1; }
     .section { min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding:4rem 1.25rem; }
-    .glass { background:rgba(17,24,39,0.55); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.08); border-radius:1.25rem; padding:2.5rem 2rem; max-width:900px; margin:0 auto; box-shadow:0 8px 32px -8px rgba(0,0,0,0.5); }
+    .glass { background:rgba(17,24,39,0.55); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.08); border-radius:1.25rem; padding:2.5rem 2rem; max-width:900px; margin:0 auto; box-shadow:0 8px 32px -8px rgba(0,0,0,0.5); opacity:0; transform:translateY(40px) scale(0.95); transition:opacity 0.6s ease, transform 0.6s ease; }
+    .glass.visible { opacity:1; transform:translateY(0); }
     .glass h2 { background:linear-gradient(90deg,#3b82f6,#06b6d4); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-    .progress-wrap { position:fixed; top:50%; right:1rem; transform:translateY(-50%); width:8px; height:60vh; background:rgba(255,255,255,0.05); border-radius:4px; overflow:hidden; }
+    .progress-wrap { position:fixed; top:50%; right:1rem; transform:translateY(-50%); width:8px; height:60vh; background:rgba(255,255,255,0.05); border-radius:4px; overflow:hidden; z-index:100; }
     .progress-bar { width:100%; height:0%; background:linear-gradient(#3b82f6,#06b6d4); box-shadow:0 0 12px rgba(59,130,246,0.6); transition:height 0.3s ease; }
-    .step-indicators { position:fixed; left:1rem; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:12px; }
+    .step-indicators { position:fixed; left:1rem; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:12px; z-index:100; }
     .step-indicators button { width:14px; height:14px; border-radius:50%; border:2px solid #3b82f6; background:transparent; cursor:pointer; transition:background 0.3s, transform 0.3s; }
     .step-indicators button.active { background:#3b82f6; transform:scale(1.25); box-shadow:0 0 8px #3b82f6; }
     .fade-intro { animation:fadeIn 1.2s ease forwards; opacity:0; }
     @keyframes fadeIn { to { opacity:1; } }
     .low-opacity { opacity:0.18; }
-    /* Prevent text selection glow over model */
     ::selection { background:#3b82f6; color:#fff; }
-    /* (Education timeline removed) */
+    
+    /* Scrollytelling animations */
+    .skill-tag, .edu-card { opacity:0; transform:translateY(20px); transition:opacity 0.4s ease, transform 0.4s ease; }
+    .skill-tag.animate, .edu-card.animate { opacity:1; transform:translateY(0); }
+    .parallax-content { transition:transform 0.1s ease-out; }
+    
+    @keyframes slideInLeft { from { opacity:0; transform:translateX(-50px); } to { opacity:1; transform:translateX(0); } }
+    @keyframes slideInRight { from { opacity:0; transform:translateX(50px); } to { opacity:1; transform:translateX(0); } }
+    @keyframes scaleIn { from { opacity:0; transform:scale(0.8); } to { opacity:1; transform:scale(1); } }
   </style>
 </head>
 <body>
@@ -64,23 +72,23 @@
   <section class="section" data-step="2" id="skills">
     <div class="glass">
       <h2 class="text-4xl font-bold mb-8 text-center">My Skillset</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 parallax-content">
         <div class="p-6 rounded-xl bg-blue-900/10 border border-blue-500/20">
           <h3 class="text-2xl font-semibold mb-4 text-center">Technical Foundations</h3>
           <div class="flex flex-wrap justify-center gap-3">
-            <span class="bg-gray-800 text-blue-300 text-sm font-medium px-4 py-2 rounded-full">Python</span>
-            <span class="bg-gray-800 text-blue-300 text-sm font-medium px-4 py-2 rounded-full">HTML</span>
-            <span class="bg-gray-800 text-blue-300 text-sm font-medium px-4 py-2 rounded-full">CSS</span>
-            <span class="bg-gray-800 text-blue-300 text-sm font-medium px-4 py-2 rounded-full">SQL</span>
+            <span class="skill-tag bg-gray-800 text-blue-300 text-sm font-medium px-4 py-2 rounded-full" style="transition-delay:0.1s">Python</span>
+            <span class="skill-tag bg-gray-800 text-blue-300 text-sm font-medium px-4 py-2 rounded-full" style="transition-delay:0.2s">HTML</span>
+            <span class="skill-tag bg-gray-800 text-blue-300 text-sm font-medium px-4 py-2 rounded-full" style="transition-delay:0.3s">CSS</span>
+            <span class="skill-tag bg-gray-800 text-blue-300 text-sm font-medium px-4 py-2 rounded-full" style="transition-delay:0.4s">SQL</span>
           </div>
         </div>
         <div class="p-6 rounded-xl bg-blue-900/10 border border-cyan-500/20">
           <h3 class="text-2xl font-semibold mb-4 text-center">Practical Skills</h3>
           <div class="flex flex-wrap justify-center gap-3">
-            <span class="bg-gray-800 text-green-300 text-sm font-medium px-4 py-2 rounded-full">AI Tooling</span>
-            <span class="bg-gray-800 text-green-300 text-sm font-medium px-4 py-2 rounded-full">Prompt Engineering</span>
-            <span class="bg-gray-800 text-green-300 text-sm font-medium px-4 py-2 rounded-full">Video Editing</span>
-            <span class="bg-gray-800 text-green-300 text-sm font-medium px-4 py-2 rounded-full">Live Streaming</span>
+            <span class="skill-tag bg-gray-800 text-green-300 text-sm font-medium px-4 py-2 rounded-full" style="transition-delay:0.5s">AI Tooling</span>
+            <span class="skill-tag bg-gray-800 text-green-300 text-sm font-medium px-4 py-2 rounded-full" style="transition-delay:0.6s">Prompt Engineering</span>
+            <span class="skill-tag bg-gray-800 text-green-300 text-sm font-medium px-4 py-2 rounded-full" style="transition-delay:0.7s">Video Editing</span>
+            <span class="skill-tag bg-gray-800 text-green-300 text-sm font-medium px-4 py-2 rounded-full" style="transition-delay:0.8s">Live Streaming</span>
           </div>
         </div>
       </div>
@@ -102,26 +110,26 @@
     <div class="glass">
       <h2 class="text-4xl font-bold mb-8 text-center">Education</h2>
       <!-- Timeline removed for simplicity -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 parallax-content">
         <div class="space-y-6">
-          <div class="p-4 rounded-lg bg-blue-900/15 border border-blue-600/30">
+          <div class="edu-card p-4 rounded-lg bg-blue-900/15 border border-blue-600/30" style="transition-delay:0.1s">
             <p class="text-xs text-blue-300 mb-1">2025 - Present (Offline)</p>
             <h4 class="text-lg font-semibold text-white">B.Tech, Computer Science & Engineering</h4>
             <p class="text-md text-gray-400">Bennett University, Greater Noida</p>
           </div>
-          <div class="p-4 rounded-lg bg-gray-800/30 border border-gray-600/40">
+          <div class="edu-card p-4 rounded-lg bg-gray-800/30 border border-gray-600/40" style="transition-delay:0.2s">
             <p class="text-xs text-gray-300 mb-1">2025 - Present (Hybrid)</p>
             <h4 class="text-lg font-semibold text-white">BS, Applied AI & Data Science</h4>
             <p class="text-md text-gray-400">IIT Jodhpur</p>
           </div>
         </div>
         <div class="space-y-6">
-          <div class="p-4 rounded-lg bg-gray-800/30 border border-gray-600/40">
+          <div class="edu-card p-4 rounded-lg bg-gray-800/30 border border-gray-600/40" style="transition-delay:0.3s">
             <p class="text-xs text-gray-300 mb-1">2024</p>
             <h4 class="text-lg font-semibold text-white">12th CBSE</h4>
             <p class="text-md text-gray-400">RPS Public School, Dharuhera</p>
           </div>
-          <div class="p-4 rounded-lg bg-gray-800/30 border border-gray-600/40">
+          <div class="edu-card p-4 rounded-lg bg-gray-800/30 border border-gray-600/40" style="transition-delay:0.4s">
             <p class="text-xs text-gray-300 mb-1">2023</p>
             <h4 class="text-lg font-semibold text-white">10th CBSE</h4>
             <p class="text-md text-gray-400">RPS Public School, Dharuhera</p>
@@ -220,20 +228,82 @@
 
     // IntersectionObserver to track active section
     const observer = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ if(e.isIntersecting){ activeStep = parseInt(e.target.dataset.step); updateActiveDots(); }});
+      entries.forEach(e=>{ 
+        if(e.isIntersecting){ 
+          activeStep = parseInt(e.target.dataset.step); 
+          updateActiveDots();
+          // Trigger glass panel animation
+          const glass = e.target.querySelector('.glass');
+          if(glass) glass.classList.add('visible');
+          // Trigger skill tags animation
+          const skillTags = e.target.querySelectorAll('.skill-tag');
+          skillTags.forEach(tag => setTimeout(() => tag.classList.add('animate'), 100));
+          // Trigger education cards animation
+          const eduCards = e.target.querySelectorAll('.edu-card');
+          eduCards.forEach(card => setTimeout(() => card.classList.add('animate'), 100));
+        } else {
+          // Remove animations when scrolling away (both up and down)
+          const glass = e.target.querySelector('.glass');
+          if(glass) glass.classList.remove('visible');
+          const skillTags = e.target.querySelectorAll('.skill-tag');
+          skillTags.forEach(tag => tag.classList.remove('animate'));
+          const eduCards = e.target.querySelectorAll('.edu-card');
+          eduCards.forEach(card => card.classList.remove('animate'));
+        }
+      });
     },{ threshold:0.6 });
     steps.forEach(s=>observer.observe(s));
 
     function updateActiveDots(){ [...stepDots.children].forEach(b=>{ b.classList.toggle('active', parseInt(b.dataset.index)===activeStep); }); }
 
     // Scroll progress
+    let lastScrollY = window.scrollY;
+    
     window.addEventListener('scroll', ()=>{
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       overallProgress = window.scrollY / docHeight; // 0..1
       document.getElementById('scroll-progress').style.height = (overallProgress*100)+'%';
-      // (education timeline removed)
+      
+      const scrollDirection = window.scrollY > lastScrollY ? 'down' : 'up';
+      lastScrollY = window.scrollY;
+      
+      // Parallax effect on content - works both directions
+      const parallaxElements = document.querySelectorAll('.parallax-content');
+      parallaxElements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const scrollPercent = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+        const translateY = (scrollPercent - 0.5) * 30; // subtle parallax
+        el.style.transform = `translateY(${translateY}px)`;
+      });
+      
+      // Continuous fade based on viewport position
+      document.querySelectorAll('.glass').forEach(glass => {
+        const section = glass.closest('.section');
+        const rect = section.getBoundingClientRect();
+        const viewportCenter = window.innerHeight / 2;
+        const sectionCenter = rect.top + rect.height / 2;
+        const distance = Math.abs(viewportCenter - sectionCenter);
+        const maxDistance = window.innerHeight;
+        const visibility = Math.max(0, Math.min(1, 1 - (distance / maxDistance) * 1.2));
+        
+        glass.style.opacity = visibility;
+        glass.style.transform = `translateY(${(1 - visibility) * 40}px) scale(${0.95 + visibility * 0.05})`;
+      });
+      
+      // Animate skill tags and edu cards based on scroll position
+      document.querySelectorAll('.skill-tag, .edu-card').forEach((el, index) => {
+        const rect = el.getBoundingClientRect();
+        const inView = rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2;
+        
+        if(inView) {
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        } else {
+          el.style.opacity = '0';
+          el.style.transform = scrollDirection === 'down' ? 'translateY(20px)' : 'translateY(-20px)';
+        }
+      });
     });
-    // (education progress logic removed)
 
     function animate(){
       requestAnimationFrame(animate);
@@ -247,31 +317,51 @@
       // Starfield slow rotation
       if(stars){ stars.rotation.x += 0.00008; stars.rotation.y += 0.00006; }
 
-      // Core dynamics
+      // Core dynamics - dramatic transformations per section
       const targetRotSpeed = 0.3 + activeStep * 0.25;
       core.rotation.y += targetRotSpeed*0.01;
       core.rotation.x += 0.01;
       wire.rotation.copy(core.rotation);
 
-      // Scale modulation per step
-      const baseScale = 1 + activeStep*0.05;
+      // Scale modulation per step - more dramatic
+      const baseScale = 1 + activeStep*0.15;
       core.scale.lerp(new THREE.Vector3(baseScale,baseScale,baseScale),0.05);
       wire.scale.copy(core.scale);
+      
+      // Position shift based on section
+      const targetZ = -activeStep * 0.3;
+      core.position.z += (targetZ - core.position.z) * 0.05;
+      wire.position.copy(core.position);
 
-      // Emissive color shift across progress (blue->aqua)
+      // Emissive color shift across progress (blue->cyan->purple)
       const hueShift = overallProgress;
-      const col = new THREE.Color().setHSL(0.55 - 0.25*hueShift, 0.9, 0.45 + 0.1*hueShift);
+      const col = new THREE.Color().setHSL(0.55 - 0.3*hueShift, 0.9, 0.45 + 0.15*hueShift);
       core.material.emissive.lerp(col,0.08);
 
-      // Nodes pulse
-      nodes.forEach((n,i)=>{ const pulse = (Math.sin(t*40 + i*0.4)*0.5+0.5); n.material.opacity = 0.3 + pulse*0.5; });
+      // Nodes pulse with varying intensity per section
+      const pulseIntensity = 1 + activeStep * 0.2;
+      nodes.forEach((n,i)=>{ 
+        const pulse = (Math.sin(t*40*pulseIntensity + i*0.4)*0.5+0.5); 
+        n.material.opacity = 0.3 + pulse*0.5;
+        n.scale.setScalar(0.8 + pulse*0.4);
+      });
 
-      // Opacity dip near final (contact) section
+      // Opacity and wireframe changes per section
       const lastStep = steps.length - 1;
-      if(activeStep===lastStep){
+      if(activeStep===0){
+        // Hero - subtle presence
+        core.material.opacity = THREE.MathUtils.lerp(core.material.opacity, 0.18, 0.05);
+        wire.material.opacity = THREE.MathUtils.lerp(wire.material.opacity, 0.15, 0.05);
+      } else if(activeStep===2 || activeStep===3){
+        // Skills/Projects - more prominent
+        core.material.opacity = THREE.MathUtils.lerp(core.material.opacity, 0.28, 0.05);
+        wire.material.opacity = THREE.MathUtils.lerp(wire.material.opacity, 0.25, 0.05);
+      } else if(activeStep===lastStep){
+        // Contact - fade to minimal
         core.material.opacity = THREE.MathUtils.lerp(core.material.opacity, 0.08, 0.05);
         wire.material.opacity = THREE.MathUtils.lerp(wire.material.opacity, 0.05, 0.05);
       } else {
+        // Default
         core.material.opacity = THREE.MathUtils.lerp(core.material.opacity, 0.18, 0.05);
         wire.material.opacity = THREE.MathUtils.lerp(wire.material.opacity, 0.15, 0.05);
       }
