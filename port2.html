@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ishant Bansal - Scrollytelling Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; background:#05070f; color:#e5e7eb; overflow-x:hidden; }
+    #three-bg { position:fixed; inset:0; width:100%; height:100%; z-index:-1; }
+    .section { min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding:4rem 1.25rem; }
+    .glass { background:rgba(17,24,39,0.55); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.08); border-radius:1.25rem; padding:2.5rem 2rem; max-width:900px; margin:0 auto; box-shadow:0 8px 32px -8px rgba(0,0,0,0.5); }
+    .glass h2 { background:linear-gradient(90deg,#3b82f6,#06b6d4); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .progress-wrap { position:fixed; top:50%; right:1rem; transform:translateY(-50%); width:8px; height:60vh; background:rgba(255,255,255,0.05); border-radius:4px; overflow:hidden; }
+    .progress-bar { width:100%; height:0%; background:linear-gradient(#3b82f6,#06b6d4); box-shadow:0 0 12px rgba(59,130,246,0.6); transition:height 0.3s ease; }
+    .step-indicators { position:fixed; left:1rem; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:12px; }
+    .step-indicators button { width:14px; height:14px; border-radius:50%; border:2px solid #3b82f6; background:transparent; cursor:pointer; transition:background 0.3s, transform 0.3s; }
+    .step-indicators button.active { background:#3b82f6; transform:scale(1.25); box-shadow:0 0 8px #3b82f6; }
+    .fade-intro { animation:fadeIn 1.2s ease forwards; opacity:0; }
+    @keyframes fadeIn { to { opacity:1; } }
+    .low-opacity { opacity:0.18; }
+    /* Prevent text selection glow over model */
+    ::selection { background:#3b82f6; color:#fff; }
+    /* (Education timeline removed) */
+  </style>
+</head>
+<body>
+  <canvas id="three-bg"></canvas>
+  <div class="progress-wrap"><div class="progress-bar" id="scroll-progress"></div></div>
+  <div class="step-indicators" id="stepDots"></div>
+
+  <!-- Sections -->
+  <!-- Hero / Intro -->
+  <section class="section" data-step="0" id="hero">
+    <div class="glass fade-intro">
+      <h1 class="text-5xl md:text-7xl font-extrabold mb-4 text-center">Ishant Bansal</h1>
+      <h2 class="text-2xl md:text-3xl font-semibold mb-8 text-center" style="background:linear-gradient(to right,#3b82f6,#60a5fa);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">Programmer | AI Enthusiast | Digital Creator</h2>
+      <div class="p-4 px-6 mb-10 text-center rounded-xl border border-blue-500/30 bg-blue-900/20">
+        <p class="text-md md:text-lg text-gray-200">Currently pursuing <span class="font-bold text-white">B.Tech CSE</span> @ <span class="font-semibold text-blue-300">Bennett University</span></p>
+        <p class="text-sm text-gray-400">&</p>
+        <p class="text-md md:text-lg text-gray-200"><span class="font-bold text-white">BS in Applied AI</span> @ <span class="font-semibold text-blue-300">IIT Jodhpur</span></p>
+      </div>
+      <div class="flex justify-center space-x-8">
+        <a href="https://github.com/BloodBlacked" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-transform duration-300 hover:scale-110" title="GitHub">
+          <svg class="w-9 h-9" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.165 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.602-3.369-1.34-3.369-1.34-.455-1.158-1.11-1.465-1.11-1.465-.909-.619.069-.607.069-.607 1.004.07 1.532 1.03 1.532 1.03.89 1.524 2.336 1.084 2.902.829.091-.644.349-1.084.635-1.332-2.215-.251-4.543-1.107-4.543-4.93 0-1.088.389-1.979 1.029-2.675-.103-.253-.446-1.266.098-2.638 0 0 .837-.268 2.742 1.022.796-.22 1.642-.33 2.484-.332.842.002 1.688.112 2.484.332 1.905-1.29 2.742-1.022 2.742-1.022.546 1.372.202 2.385.1 2.638.64.696 1.028 1.587 1.028 2.675 0 3.833-2.33 4.675-4.552 4.922.359.308.679.917.679 1.846 0 1.332-.012 2.407-.012 2.734 0 .267.18.577.688.48 3.97-1.326 6.833-5.071 6.833-9.488C22 6.477 17.523 2 12 2Z" clip-rule="evenodd" /></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/ishant-b21292377/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-transform duration-300 hover:scale-110" title="LinkedIn">
+          <svg class="w-9 h-9" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Me -->
+  <section class="section" data-step="1" id="about">
+    <div class="glass">
+      <h2 class="text-4xl font-bold mb-6 text-center">About Me</h2>
+      <p class="text-lg text-gray-300 leading-relaxed">I'm a 1st-year student passionate about using AI tools and code to build real-world solutions. My journey is unique—I'm simultaneously pursuing a B.Tech in CSE from <span class="font-semibold text-blue-300">Bennett University</span> and a BS in Applied AI & Data Science from <span class="font-semibold text-blue-300">IIT Jodhpur</span>. Based in India, I'm driven by a deep curiosity for technology and a love for creating.</p>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="section" data-step="2" id="skills">
+    <div class="glass">
+      <h2 class="text-4xl font-bold mb-8 text-center">My Skillset</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="p-6 rounded-xl bg-blue-900/10 border border-blue-500/20">
+          <h3 class="text-2xl font-semibold mb-4 text-center">Technical Foundations</h3>
+          <div class="flex flex-wrap justify-center gap-3">
+            <span class="bg-gray-800 text-blue-300 text-sm font-medium px-4 py-2 rounded-full">Python</span>
+            <span class="bg-gray-800 text-blue-300 text-sm font-medium px-4 py-2 rounded-full">HTML</span>
+            <span class="bg-gray-800 text-blue-300 text-sm font-medium px-4 py-2 rounded-full">CSS</span>
+            <span class="bg-gray-800 text-blue-300 text-sm font-medium px-4 py-2 rounded-full">SQL</span>
+          </div>
+        </div>
+        <div class="p-6 rounded-xl bg-blue-900/10 border border-cyan-500/20">
+          <h3 class="text-2xl font-semibold mb-4 text-center">Practical Skills</h3>
+          <div class="flex flex-wrap justify-center gap-3">
+            <span class="bg-gray-800 text-green-300 text-sm font-medium px-4 py-2 rounded-full">AI Tooling</span>
+            <span class="bg-gray-800 text-green-300 text-sm font-medium px-4 py-2 rounded-full">Prompt Engineering</span>
+            <span class="bg-gray-800 text-green-300 text-sm font-medium px-4 py-2 rounded-full">Video Editing</span>
+            <span class="bg-gray-800 text-green-300 text-sm font-medium px-4 py-2 rounded-full">Live Streaming</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Project -->
+  <section class="section" data-step="3" id="projects">
+    <div class="glass">
+      <h2 class="text-4xl font-bold mb-8 text-center">Featured Project</h2>
+      <span class="inline-block bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full mb-4">SIH 2025 (Problem: SIH25017)</span>
+      <h3 class="text-3xl font-bold text-white mb-3">Navonmesa Bharatam</h3>
+      <p class="text-lg text-gray-300">An alumni-student-college connecting platform designed for the Smart India Hackathon. The goal is to create a seamless network for mentorship, collaboration, and resource sharing within the academic community.</p>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section class="section" data-step="4" id="education">
+    <div class="glass">
+      <h2 class="text-4xl font-bold mb-8 text-center">Education</h2>
+      <!-- Timeline removed for simplicity -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="space-y-6">
+          <div class="p-4 rounded-lg bg-blue-900/15 border border-blue-600/30">
+            <p class="text-xs text-blue-300 mb-1">2025 - Present (Offline)</p>
+            <h4 class="text-lg font-semibold text-white">B.Tech, Computer Science & Engineering</h4>
+            <p class="text-md text-gray-400">Bennett University, Greater Noida</p>
+          </div>
+          <div class="p-4 rounded-lg bg-gray-800/30 border border-gray-600/40">
+            <p class="text-xs text-gray-300 mb-1">2025 - Present (Hybrid)</p>
+            <h4 class="text-lg font-semibold text-white">BS, Applied AI & Data Science</h4>
+            <p class="text-md text-gray-400">IIT Jodhpur</p>
+          </div>
+        </div>
+        <div class="space-y-6">
+          <div class="p-4 rounded-lg bg-gray-800/30 border border-gray-600/40">
+            <p class="text-xs text-gray-300 mb-1">2024</p>
+            <h4 class="text-lg font-semibold text-white">12th CBSE</h4>
+            <p class="text-md text-gray-400">RPS Public School, Dharuhera</p>
+          </div>
+          <div class="p-4 rounded-lg bg-gray-800/30 border border-gray-600/40">
+            <p class="text-xs text-gray-300 mb-1">2023</p>
+            <h4 class="text-lg font-semibold text-white">10th CBSE</h4>
+            <p class="text-md text-gray-400">RPS Public School, Dharuhera</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section" data-step="5" id="contact">
+    <div class="glass">
+      <h2 class="text-4xl font-bold mb-6 text-center">Get in Touch</h2>
+      <p class="text-lg text-gray-300 mb-8 max-w-xl mx-auto text-center">I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.</p>
+      <div class="flex justify-center">
+        <a href="mailto:s25cseu0449@bennett.edu.in" class="inline-block px-8 py-4 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-500 text-white text-lg font-semibold shadow hover:opacity-90 transition">s25cseu0449@bennett.edu.in</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Build step dots
+    const steps = [...document.querySelectorAll('[data-step]')];
+    const stepDots = document.getElementById('stepDots');
+    steps.forEach((s,i)=>{ const b=document.createElement('button'); b.dataset.index=i; stepDots.appendChild(b); b.addEventListener('click',()=>{ window.scrollTo({ top:s.offsetTop, behavior:'smooth'}); }); });
+
+    // THREE.js setup
+    let scene, camera, renderer, core, wire, stars, starGeo, nodes=[], rings=[];
+    let activeStep=0, overallProgress=0, mouseX=0, mouseY=0;
+    const canvas = document.getElementById('three-bg');
+    initThree();
+
+    function initThree(){
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(50, window.innerWidth/window.innerHeight, 0.1, 2000);
+      camera.position.set(0,0,6);
+      renderer = new THREE.WebGLRenderer({ canvas, alpha:true, antialias:true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+
+      // Lighting
+      scene.add(new THREE.AmbientLight(0xffffff,0.55));
+      const dir = new THREE.DirectionalLight(0xffffff,0.85); dir.position.set(4,6,8); scene.add(dir);
+
+      // Starfield background (ported from port1)
+      starGeo = new THREE.BufferGeometry();
+      const starCount = 6000;
+      const positions = new Float32Array(starCount * 3);
+      for (let i=0;i<starCount;i++) {
+        let x = (Math.random() - 0.5) * 2000;
+        let y = (Math.random() - 0.5) * 2000;
+        let z = (Math.random() - 0.5) * 2000;
+        const d = 1 / Math.sqrt(x*x + y*y + z*z);
+        x *= d; y *= d; z *= d;
+        const distance = Math.random() * 400 + 160; // keep further back so core stands out
+        positions[i*3] = x * distance;
+        positions[i*3+1] = y * distance;
+        positions[i*3+2] = z * distance;
+      }
+      starGeo.setAttribute('position', new THREE.BufferAttribute(positions,3));
+      const starMat = new THREE.PointsMaterial({ color:0xaaaaaa, size:0.7, transparent:true, opacity:0.9, depthWrite:false });
+      stars = new THREE.Points(starGeo, starMat);
+      scene.add(stars); // added first so core renders over
+
+      // Tech core
+      const geo = new THREE.IcosahedronGeometry(1.8,2);
+      const mat = new THREE.MeshStandardMaterial({ color:0x0a2463, metalness:0.6, roughness:0.25, transparent:true, opacity:0.18, emissive:0x0066aa, emissiveIntensity:0.35 });
+      core = new THREE.Mesh(geo,mat); scene.add(core);
+      const wireGeo = new THREE.IcosahedronGeometry(1.82,2);
+      const wireMat = new THREE.MeshBasicMaterial({ color:0x00ffff, wireframe:true, transparent:true, opacity:0.15 });
+      wire = new THREE.Mesh(wireGeo, wireMat); scene.add(wire);
+
+      // Nodes on vertices
+      const pos = geo.attributes.position; const unique = new Set();
+      for(let i=0;i<pos.count;i++){
+        const x=pos.getX(i), y=pos.getY(i), z=pos.getZ(i);
+        const key=`${x.toFixed(2)},${y.toFixed(2)},${z.toFixed(2)}`;
+        if(unique.has(key)) continue; unique.add(key);
+        const ng = new THREE.SphereGeometry(0.05,6,6);
+        const nm = new THREE.MeshBasicMaterial({ color:0x00ffff, transparent:true, opacity:0.6 });
+        const node = new THREE.Mesh(ng,nm); node.position.set(x,y,z); core.add(node); nodes.push(node);
+      }
+
+      // Events
+      window.addEventListener('resize', onResize);
+      document.addEventListener('mousemove', onMouseMove);
+      animate();
+    }
+
+    function onResize(){ camera.aspect=window.innerWidth/window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); }
+
+    function onMouseMove(e){
+      mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+    }
+
+    // IntersectionObserver to track active section
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ activeStep = parseInt(e.target.dataset.step); updateActiveDots(); }});
+    },{ threshold:0.6 });
+    steps.forEach(s=>observer.observe(s));
+
+    function updateActiveDots(){ [...stepDots.children].forEach(b=>{ b.classList.toggle('active', parseInt(b.dataset.index)===activeStep); }); }
+
+    // Scroll progress
+    window.addEventListener('scroll', ()=>{
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      overallProgress = window.scrollY / docHeight; // 0..1
+      document.getElementById('scroll-progress').style.height = (overallProgress*100)+'%';
+      // (education timeline removed)
+    });
+    // (education progress logic removed)
+
+    function animate(){
+      requestAnimationFrame(animate);
+      const t = performance.now()*0.0002;
+
+      // Parallax camera movement (subtle)
+      camera.position.x += (mouseX * 0.6 - camera.position.x) * 0.02;
+      camera.position.y += (mouseY * 0.4 - camera.position.y) * 0.02;
+      camera.lookAt(new THREE.Vector3(0,0,0));
+
+      // Starfield slow rotation
+      if(stars){ stars.rotation.x += 0.00008; stars.rotation.y += 0.00006; }
+
+      // Core dynamics
+      const targetRotSpeed = 0.3 + activeStep * 0.25;
+      core.rotation.y += targetRotSpeed*0.01;
+      core.rotation.x += 0.01;
+      wire.rotation.copy(core.rotation);
+
+      // Scale modulation per step
+      const baseScale = 1 + activeStep*0.05;
+      core.scale.lerp(new THREE.Vector3(baseScale,baseScale,baseScale),0.05);
+      wire.scale.copy(core.scale);
+
+      // Emissive color shift across progress (blue->aqua)
+      const hueShift = overallProgress;
+      const col = new THREE.Color().setHSL(0.55 - 0.25*hueShift, 0.9, 0.45 + 0.1*hueShift);
+      core.material.emissive.lerp(col,0.08);
+
+      // Nodes pulse
+      nodes.forEach((n,i)=>{ const pulse = (Math.sin(t*40 + i*0.4)*0.5+0.5); n.material.opacity = 0.3 + pulse*0.5; });
+
+      // Opacity dip near final (contact) section
+      const lastStep = steps.length - 1;
+      if(activeStep===lastStep){
+        core.material.opacity = THREE.MathUtils.lerp(core.material.opacity, 0.08, 0.05);
+        wire.material.opacity = THREE.MathUtils.lerp(wire.material.opacity, 0.05, 0.05);
+      } else {
+        core.material.opacity = THREE.MathUtils.lerp(core.material.opacity, 0.18, 0.05);
+        wire.material.opacity = THREE.MathUtils.lerp(wire.material.opacity, 0.15, 0.05);
+      }
+
+      renderer.render(scene,camera);
+    }
+  </script>
+</body>
+</html>
