@@ -4,12 +4,14 @@ A modern, interactive portfolio website featuring smooth scrolling animations, 3
 
 ## 🌟 Features
 
-- **Scrollytelling Experience**: Engaging scroll-based storytelling with smooth transitions
-- **3D Background**: Interactive Three.js animated tech core with starfield background
+- **Advanced Scrollytelling**: Bidirectional scroll-based storytelling with smooth fade-in/fade-out animations
+- **3D Background**: Interactive Three.js animated tech core with 6000+ particle starfield
 - **Responsive Design**: Fully responsive layout built with Tailwind CSS
-- **Glass Morphism UI**: Modern frosted glass effect design elements
-- **Progress Tracking**: Visual scroll progress indicator and section navigation dots
-- **Dynamic Animations**: Real-time 3D model animations that respond to scroll position and mouse movement
+- **Glass Morphism UI**: Modern frosted glass effect with dynamic opacity based on viewport position
+- **Progress Tracking**: Visual scroll progress indicator and clickable section navigation dots
+- **Dynamic Animations**: Real-time 3D transformations, parallax effects, and staggered element animations
+- **Continuous Reactivity**: Content animations work seamlessly in both scroll directions
+- **Section-Aware Visuals**: 3D core changes scale, position, color, and opacity based on active section
 
 ## 🛠️ Technologies Used
 
@@ -23,23 +25,29 @@ A modern, interactive portfolio website featuring smooth scrolling animations, 3
 
 1. **Hero** - Introduction with name, roles, and social links
 2. **About Me** - Personal background and dual degree program details
-3. **Skills** - Technical foundations (Python, HTML, CSS, SQL) and practical skills (AI tools, video editing)
-4. **Projects** - Featured project: Navonmesa Bharatam (SIH 2025)
-5. **Education** - Academic credentials and qualifications
+3. **Skills** - Technical foundations (Python, HTML, CSS, SQL) and practical skills (AI tools, video editing) with staggered animations
+4. **Projects** - Two featured projects:
+   - 🇮🇳 **Navonmesa Bharatam** (SIH 2025) - Alumni management platform with role-based features
+   - 🧠 **StudyMate AI Chatbot** - Intelligent study assistant with Python/Tkinter
+5. **Education** - Academic credentials with animated cards
 6. **Contact** - Get in touch section with email
 
 ## 🎨 Design Highlights
 
-- Dark theme with blue/cyan gradient accents
-- Particle starfield background with 6000+ stars
-- Interactive icosahedron core that responds to scroll depth
-- Mouse parallax effect for subtle camera movement
-- Color-shifting emissive effects based on scroll progress
-- Custom step indicators for section navigation
+- Dark theme with blue/cyan/purple gradient accents
+- Particle starfield background with 6000+ stars and slow rotation
+- Interactive icosahedron core with dramatic scale, position, and opacity changes
+- Mouse parallax effect on 3D camera for depth perception
+- Color-shifting emissive effects (blue → cyan → purple) based on scroll progress
+- Viewport-aware continuous fade animations on all sections
+- Staggered skill tag and education card animations
+- Parallax content movement within sections
+- Custom clickable step indicators with active states
+- Bidirectional scroll animations (works scrolling up and down)
 
 ## 🚀 Getting Started
 
-Simply open `port2.html` in a modern web browser. No build process or dependencies required - all libraries are loaded via CDN.
+Simply open `index.html` in a modern web browser. No build process or dependencies required - all libraries are loaded via CDN.
 
 ```bash
 # Clone or download the repository
@@ -47,11 +55,11 @@ Simply open `port2.html` in a modern web browser. No build process or dependenci
 cd portfolio#1
 
 # Open in browser
-start port2.html  # Windows
+start index.html  # Windows
 # or
-open port2.html   # macOS
+open index.html   # macOS
 # or
-xdg-open port2.html  # Linux
+xdg-open index.html  # Linux
 ```
 
 ## 🔗 Connect
@@ -59,6 +67,30 @@ xdg-open port2.html  # Linux
 - **GitHub**: [BloodBlacked](https://github.com/BloodBlacked)
 - **LinkedIn**: [Ishant Bansal](https://www.linkedin.com/in/ishant-b21292377/)
 - **Email**: s25cseu0449@bennett.edu.in
+
+## 💼 Featured Projects
+
+### 🇮🇳 Navonmesa Bharatam (SIH 2025)
+A modern, responsive centralized alumni management platform designed for the Department of Higher Education, Govt. of Punjab.
+
+**Features:**
+- Role-based dashboards for Alumni, Students, and Institutions
+- Mentorship hub and professional networking
+- Event management and fundraising tools
+- Analytics dashboard with Chart.js visualizations
+
+**Tech Stack:** HTML5, Tailwind CSS, JavaScript ES6, Chart.js
+
+### 🧠 StudyMate AI Chatbot
+An intelligent study assistant chatbot built with Python and Tkinter.
+
+**Features:**
+- JSON-driven knowledge base with context-aware conversations
+- Coverage of Physics, Math, and Coding subjects
+- Auto-save and export chat history
+- Clickable resource links and modern dark UI
+
+**Tech Stack:** Python, Tkinter, JSON
 
 ## 📚 Education
 
